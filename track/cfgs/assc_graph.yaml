@@ -1,0 +1,91 @@
+max_connect_edges: 100  # when build assc graph, the max number
+# of how many a tarcklet node can connect with detection nodes
+
+# whether to build an edge between tracklet node and detection node
+edge_build_method: 
+  - 'iou_dist'
+  - 'ecu_dist'
+  - 'sim_dist'
+# 'ecu_dist': choose nearest k objs in Eculid distance
+# 'sim_dist': choose nearest k objs in similarity of feature
+
+edge_feature_parts:  # components of edge feature
+  - 'xy_diff'
+  - 'log_wh'
+  - 'wass' 
+#  - 'iou'
+#  - 'buffered_iou'
+  - 'feature'
+
+forward_method: 'GNN'  # 'message passing' 'GNN',  use traditional message_passing or complicated GNN
+match_method: 'Hungarian'  # Hungarian or Sinkhorn
+
+node_feature_merge_method: 'avg'  # 'mlp' 'avg'  how to merge node feature
+
+layer_norm: True
+
+message_passing:
+  edge_mlp: True  # whether use mlp to encode and update edge feature, 
+  # if False, only simple mesaage passing and is not trainable
+  node_mlp: True  # whether use mlp to encode and update edge feature, 
+  # if False, only simple mesaage passing and is not trainable
+  edge_aggregate_func: 'sum'  # 'mean' 'sum' 'max' 'min'  
+  node_aggregate_func: 'mean'
+  depth: 6  # iter num
+  residual: True  # x + f(x)
+
+edge_mlp:  # Encode and Update MLP w.r.t. edges
+  edge_encode:
+    drop_out_p: 0.0  # prob of Dropout layer
+    dims:  # TODO
+      - 165
+      - 128
+      - 64
+  edge_update:
+    drop_out_p: 0.0
+    dims:
+      - 384
+      - 256
+      - 128
+      - 64
+
+node_mlp:  # Encode and Update MLP w.r.t. nodes
+  node_encode:  # if == None, do not encode node feature
+  node_update:
+    drop_out_p: 0.0
+    dims:
+      - 320
+      - 128
+      - 64
+
+GNN:
+  depth: 3
+  GNN_type: 'GeneralConv'  # GATConv, HEATConv, GeneralConv
+  residual: True  # x + f(x)
+  node_dim_input: 160 # TODO here
+  node_dim_output: 160 # TODO here
+  heads: 2  # attn heads
+  edge_dim: 64  # TODO here
+
+
+edge_cls:
+  drop_out_p: 0.0
+  method: 'last'  # 'avg', 'pred_every', for middle layer edge features, use last one or avg them or 
+  # pred them all and combine the results
+  use_gt_in_train: True  # when training, whether use gt to construct graph and loss computation
+  dims:  # TODO: fill in dims
+    - 64
+    - 32
+    - 32
+
+node_cls:
+  drop_out_p: 0.0
+  method: 'last'  # 'avg', 'pred_every', for middle layer edge features, use last one or avg them or 
+  # pred them all and combine the results
+  use_gt_in_train: True  # when training, whether use gt to construct graph and loss computation
+  dims:  # TODO: fill in dims
+    - 160
+    - 64
+    - 32
+
+multi_loss_method: 'fixed'  # 'fixed' or 'uncertainty'

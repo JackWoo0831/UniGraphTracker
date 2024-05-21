@@ -1,0 +1,48 @@
+dataset_name: 'VisDrone'
+cache_dataset: True
+cache_path: './track/data/{}_{}.pkl'
+
+mapper: 'TwoFrameMapper'  # dataset mapper
+random_range:  # range when random sampling frames
+  - 1 
+  - 29
+prob_adj_sampling: 0.9  # prob that sample adj frames
+reduced_scale: 4  # if dataset is very large, then shrink the dataset. 
+# when shrink, use random in __getitem__ w.r.t idx
+
+prob_add_fp: 0.1  # to gen FPs
+max_fp_number: 5  # to gen FPs
+
+VisDrone:
+  num_classes: 5  # 1, 5
+  name: 'visdrone'
+  path: '/data/wujiapeng/datasets/VisDrone2019/VisDrone2019'
+  img_name_prefix_length: 0  # non-digit prefix in img file name, in Visdrone: 0..01.jpg
+  CERTRAIN_SEQS: 
+  IGNORE_SEQS:
+
+
+UAVDT:
+  num_classes: 1
+  name: 'uavdt'
+  path: '/data/wujiapeng/datasets/UAVDT'
+  img_name_prefix_length: 3  # non-digit prefix in img file name, in UAVDT: img0...01.jpg
+  CERTRAIN_SEQS: 
+  IGNORE_SEQS:
+
+
+MOT17:
+  num_classes: 1
+  name: 'mot17'
+  path: '/data/wujiapeng/datasets/MOT17'
+  img_name_prefix_length: 0  # non-digit prefix in img file name, in MOT17: 0..01.jpg
+  CERTRAIN_SEQS: 
+  IGNORE_SEQS:
+
+AIRMOT:
+  num_classes: 2
+  name: 'airmot'
+  path: '/data/wujiapeng/datasets/AIRMOT'
+  img_name_prefix_length: 0 
+  CERTRAIN_SEQS: 
+  IGNORE_SEQS:

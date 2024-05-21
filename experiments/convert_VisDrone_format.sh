@@ -1,0 +1,2 @@
+python3 ./track/tools/convert_VisDrone_to_yolo.py --category all --split_name VisDrone2019-MOT-train --generate_imgs
+python3 ./track/tools/convert_VisDrone_to_yolo.py --category all --split_name VisDrone2019-MOT-val --generate_imgs

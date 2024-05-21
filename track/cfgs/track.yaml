@@ -1,0 +1,24 @@
+detector:
+  name: 'YOLOX'  # YOLOX  YOLOv7 YOLOv8
+  img_size: 1280 # please set this in exp file of YOLOX
+  exp_file: 'yolox_utils/yolox_m.py'  # exp file for yoloX
+  weights: 'track/weights/yolox_m_VisDrone_55epochs_20230509.pth.tar'  # weight path for yolo-X, yolo v7, yolo v8
+  conf_thresh: 0.05  # low conf thresh to filter detections 
+  nms_thresh: 0.25  # NMS thresh to remove duplicat, for YOLO v7
+
+# re-id 
+reid:
+  name: 'OSNet'
+  weights: 'track/weights/osnet_x1_0_msmt17.pth'  # weight path for re_id
+  image_size:  # croped target size, default in OSNet is: (256, 128) 
+    - 128  # h
+    - 128  # w
+
+tracker:
+  split: 'val'  # 'train', 'val', 'test'
+  model_path: 'track/weights/ugt_best_20230611.pth'  # tracker model path 
+  track_buffer: 30
+  min_area: 50
+  wh_ratio_filter: 1000000000  # w / h > filter will be abandoned, 
+  # if not use, set a very large value (1e9)
+  sinkhorn: False  # sinkhorn-knopp norm

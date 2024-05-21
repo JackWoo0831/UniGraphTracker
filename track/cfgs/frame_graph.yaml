@@ -1,0 +1,91 @@
+max_distance: 0.3  # range that considered as a near object
+max_near_obj_num: 20  # max num of nearest object
+layer_num: 3  # layer num of frame graph
+occ_thresh: 0.3
+
+edge_build_method: 'nearest_k'  # whether to build an edge between two nodes
+# 'nearset_k': choose nearest k objs in a range of distance
+# 'fixed_range': choose objs that in a fixed range of distance, no matter how many
+# 'mst': Minimum spanning tree
+
+edge_feature_parts:  # components of edge feature
+  - 'xy_diff'
+  - 'log_wh'
+  - 'wass' 
+#  - 'iou'
+#  - 'buffered_iou'
+  - 'feature'
+
+node_feature_merge_method: 'sim'  # 'concat' 'avg' 'sim' how to merge node feature
+pooling: False  # whether decrease dimensions of reid feature using pooling
+pooling_method: 'adaptive_max'  # 'adaptive_avg' 'adaptive_max' 
+pooling_shape: 256  # origin is 512
+layer_norm: False  # whether use layer norm during iter
+
+forward_method: 'GNN'  # 'GNN' use traditional message_passing or complicated GNN
+message_passing:
+  edge_mlp: True  # whether use mlp to encode and update edge feature, 
+  # if False, only simple mesaage passing and is not trainable
+  node_mlp: True  # whether use mlp to encode and update edge feature, 
+  # if False, only simple mesaage passing and is not trainable
+  edge_aggregate_func: 'sum'  # 'mean' 'sum' 'max' 'min'  
+  node_aggregate_func: 'mean'
+  depth: 3  # iter num
+  residual: True  # x + f(x)
+
+edge_mlp:  # Encode and Update MLP w.r.t. edges
+  edge_encode:
+    drop_out_p: 0.0  # prob of Dropout layer
+    dims:  # TODO
+      - 6
+      - 32
+      - 32
+      - 32
+  edge_update_app:
+    drop_out_p: 0.0
+    dims:
+      - 288
+      - 128
+      - 32
+  edge_update_tpy:
+    drop_out_p: 0.0
+    dims:
+      - 96
+      - 64
+      - 32
+
+node_mlp:  # Encode and Update MLP w.r.t. nodes
+  node_encode_app:  # if == None, do not encode node feature
+    drop_out_p: 0.0
+    dims:
+      - 512
+      - 256
+      - 128
+  node_encode_tpy:
+    drop_out_p: 0.0
+    dims:
+      - 44
+      - 32
+      - 32
+  node_update_app:
+    drop_out_p: 0.0
+    dims:
+      - 160
+      - 128
+      - 128
+  node_update_tpy:
+    drop_out_p: 0.0
+    dims:
+      - 64
+      - 32
+      - 32
+
+GNN:
+  GNN_type: 'GENConv'
+  depth: 3
+  node_dim_input_app: 128
+  node_dim_output_app: 128 
+  node_dim_input_tpy: 32 
+  node_dim_output_tpy: 32 
+  edge_dim: 32
+  residual: True  # x + f(x)

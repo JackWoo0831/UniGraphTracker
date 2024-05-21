@@ -1,0 +1,27 @@
+# train configs 
+
+# detector
+detector:
+  enabled: False  # use gt to train or use detector results
+  name: 'YOLOX' 
+  img_size:  # please set this in exp file of YOLOX
+  exp_file: 'yolox_utils/yolox_m.py'  # exp file for yoloX
+  weights: ''  # weight path for yolo-X 
+  conf_thersh: 0.2  # low conf thresh to filter detections 
+  nms_thresh: 0.7  # NMS thresh to remove duplicate
+
+# re-id 
+reid:
+  name: 'OSNet'
+  weights: 'track/weights/osnet_x1_0_msmt17.pth'  # weight path for re_id
+  image_size:  # croped target size, default in OSNet is: (256, 128) 
+    - 128  # h
+    - 128  # w
+
+# tracker 
+tracker:
+  weights: ''  # resume weights
+  optimizer: 'sgd'  # 'adam', 'sgd'
+  lr0: 0.0002  # init learning rate
+  momentum: 0.937  # used in SGD
+  lr_scheduler: 'Cosine'  # 'Cosine', 'Step', 'Constant'

@@ -1,0 +1,2 @@
+filter_occ_thresh: 0.7  
+mask_occ: False

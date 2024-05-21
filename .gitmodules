@@ -1,0 +1,6 @@
+[submodule "deep-person-reid"]
+	path = deep-person-reid
+	url = git@github.com:KaiyangZhou/deep-person-reid.git
+[submodule "yolov7"]
+	path = yolov7
+	url = git@github.com:WongKinYiu/yolov7.git
