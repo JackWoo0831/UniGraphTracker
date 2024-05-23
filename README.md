@@ -38,25 +38,27 @@ git clone --recurse-submodules https://github.com/JackWoo0831/UniGraphTracker.gi
 Run
 ```bash
 sudo docker build -t unigraphtracker .
-sudo docker run -it --gpus all unigraphtracker
+sudo docker run -it -rm --gpus all unigraphtracker
 ```
 
 ### 2. By Anaconda (Recommended)
 
-You can directly execute:
-
-```bash
-sh experiments/build_env.sh
-```
-
-Or install step by step manually. First create a new virtual env
+First create a new virtual env
 
 ```bash
 conda create -n myenv python==3.9
 conda activate myenv
 ```
 
-Then run 
+Then, you can directly execute:
+
+```bash
+sh experiments/build_env.sh
+```
+
+Or install step by step manually:
+
+run 
 
 ```bash
 # basic

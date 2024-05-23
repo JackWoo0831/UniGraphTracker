@@ -2,8 +2,8 @@
 
 echo "----------1. Creating conda virtual env----------"
 
-conda create -n myenv python==3.9
-conda activate myenv
+# conda create -n myenv python==3.9
+# conda activate myenv
 
 echo "----------2. Installing basic packages----------"
 
