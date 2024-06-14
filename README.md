@@ -1,12 +1,10 @@
-# Learning a robust topological relationship for online MOT in UAV scenarios
+# [IEEE TGRS 2024] Learning a robust topological relationship for online MOT in UAV scenarios
 
 ****
 ***Abstract:*** Many existing MOT methods tend to model each object's feature individually. However, under acute viewpoint variation and occlusion, there may exist significant differences between the current and historical features for objects, which easily leads to object loss. To alleviate these issues, the topological relationships (i.e., geometric shapes formed by objects) should be modeled as a supplement to individual object features to maintain stability. In this paper, we propose a novel MOT framework, which consists of Frame Graph and Association Graph, to leverage the topological relationships both spatially and temporally. Technically, the Frame Graph models distances and angles among objects to resist viewpoint change, while the Association Graph utilizes the inter-frame temporal consistency of topological features to recover occluded objects. Extensive experiments on mainstream datasets demonstrate the effectiveness.
 ****
 
 ![overall_flowchart](assets/overall.jpg)
-
-> Note: the core code of model in `track/models` will be public immediately after the acceptance of the paper. The corresponding code in current format is *.so*, which will not have any impact on training and inference.
 
 ## Run Demo
 
